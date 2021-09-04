@@ -1,30 +1,27 @@
+import { useSelector } from "react-redux";
+
 import { TodoItem } from "./TodoItem";
 
 export const ListItems = () => {
-	const todos = [
-		{
-			id: 1,
-			title: "todo1",
-			completed: false
-		},
-		{ id: 2, title: "todo2", completed: false },
-		{ id: 3, title: "todo3", completed: true },
-		{ id: 4, title: "todo4", completed: false },
-		{ id: 5, title: "todo5", completed: false }
-	];
+	// useSelector to get the state from store
+	const todos = useSelector((state) => state.todos);
+	const completedTodos = todos.filter((todo) => todo.completed === true);
 
 	return (
 		<>
 			<ul className="">
 				{todos.map((todo) => (
 					<TodoItem
+						key={todo.id}
 						id={todo.id}
 						title={todo.title}
 						completed={todo.completed}
 					/>
 				))}
 			</ul>
-			<div>Total completed items: </div>
+			<div>
+				Total completed items: {completedTodos.length} / {todos.length}
+			</div>
 		</>
 	);
 };

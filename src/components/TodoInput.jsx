@@ -1,11 +1,22 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { addTodo } from "../state/todoSlice";
 import { Button } from "./Button";
 
 export const TodoInput = () => {
 	const [input, setInput] = useState("");
+	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
+		// console.log("form submit");
 		e.preventDefault();
+		dispatch(
+			addTodo({
+				title: input
+			})
+		);
+		setInput("");
 	};
 
 	const handleChange = (e) => {
